@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	
+	<context:property-placeholder ignore-resource-not-found="true" ignore-unresolvable="true" location="classpath:api.config.properties" order="3"/>
+     <!-- enable Aspect annotation -->
+    <aop:aspectj-autoproxy/>
+    
+    <!-- ******************************************************************** -->
+    <!-- Configures the @Controller programming model -->
+    <!-- ******************************************************************** --> 
+	<!-- 
+		NOTE: mvc:annotation is customized with version control. 
+		see VersionAnnotationMethodHandlerAdapter
+	 -->
+	<mvc:annotation-driven/>
+    <mvc:interceptors>
+       <bean class="com.kruzok.api.impl.context.ApiContextFactoryInterceptorImpl" />    
+       <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
+    
+    <!-- ******************************************************************** -->
+    <!-- Scan for web layer annotated beans -->
+    <!-- ******************************************************************** -->
+    <context:component-scan base-package="com.kruzok.api" />
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
+    
+    <!-- ******************************************************************** -->
+    <!-- Error Handlers -->
+    <!-- ******************************************************************** -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" p:order="1" >
+    	<property name="messageConverters" ref="versionHttpMessageConverter"/>
+    </bean>
+    <bean id="apiExceptionResolver" class="com.kruzok.api.impl.exception.ApiExceptionHandlerImpl">
+        <property name="order" value="1"/>
+        <property name="errorResolver">
+            <bean class="com.kruzok.api.impl.exception.ApiErrorResolverImpl">
+                <property name="localeResolver" ref="localeResolver"/>
+                <property name="exceptionMappingDefinitions">
+                    <map>
+                    <entry key="org.springframework.http.converter.HttpMessageNotReadableException" value="400, error.parsing.request"/>
+                        <!-- 500 (catch all): -->
+                        <entry key="Throwable" value="500, server.error"/>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+</beans>

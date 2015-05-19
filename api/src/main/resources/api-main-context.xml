@@ -3,39 +3,43 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
       http://www.springframework.org/schema/aop
-      http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
       http://www.springframework.org/schema/context 
-      http://www.springframework.org/schema/context/spring-context-4.1.xsd
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd
       http://www.springframework.org/schema/jee
-      http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+      http://www.springframework.org/schema/security 
+      http://www.springframework.org/schema/security/spring-security-3.0.xsd
       http://www.springframework.org/schema/util 
-      http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+      http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	
 	<util:list id="propertiesList" value-type="java.lang.String">
         <value>/WEB-INF/log4j.properties</value>
         <value>log4j.properties</value>
         <value>classpath:log4j.properties</value>
-        
-        <value>/WEB-INF/web-config.properties</value>
-        <value>web-config.properties</value>
-        <value>classpath:web-config.properties</value>
     </util:list>
 
-    <bean id="placeholderConfig" class="com.kruzok.web.util.CustomPropertyPlaceholderConfigurer">
+    <bean id="placeholderConfig" class="com.kruzok.api.util.CustomPropertyPlaceholderConfigurer">
     	<property name="fileEncoding" value="UTF-8" />
         <property name="ignoreUnresolvablePlaceholders" value="true" />
         <property name="ignoreResourceNotFound" value="true"/>
 		<property name="locations" ref="propertiesList" />
     </bean>
-    
-    <import resource="classpath:web-tiles-context.xml"/>
-    <import resource="classpath:web-security-context.xml"/>
-    <import resource="classpath:web-context.xml"/>
+	
+	<!-- ******************************************************************** -->
+	<!-- Include context files from different layers -->
+	<!-- ******************************************************************** -->
+	<import resource="classpath:api-context.xml"/>
+	<import resource="classpath:api-security-context.xml" />
+	
+	
+	
 	
     <!-- ******************************************************************** -->
     <!-- Setting up the resources for Localization and Internationalization -->
@@ -49,4 +53,5 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
+	<bean id="serverConfig" class="com.kruzok.api.common.util.ServerConfig" init-method="init" />
 </beans>

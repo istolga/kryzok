@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<project name="Kryzok" basedir="." default="deploy">
+	<description>Kruzok</description>
+
+	<property file="build.properties" />
+	<property name="tomcat.dir" value="../tomcat/" />
+	<condition property="TOMCAT" value="${env.TOMCAT}" else="${tomcat.dir}">
+		<isset property="env.TOMCAT" />
+	</condition>
+
+	<target name="deploy.api">
+		<delete dir="${TOMCAT}/api" />
+		<delete file="${TOMCAT}/api.war" />
+		<delete dir="${TOMCAT}/../work" />
+		<delete dir="${TOMCAT}/../wtpwebapps" />
+		<copy file="./api/target/kruzok.api-1.0.0-1.war" tofile="${TOMCAT}/api.war" overwrite="yes" />
+	</target>
+	
+	<target name="deploy.war">
+		<delete dir="${TOMCAT}/ROOT" />
+		<delete file="${TOMCAT}/ROOT.war" />
+		<delete dir="${TOMCAT}/../work" />
+		<delete dir="${TOMCAT}/../wtpwebapps" />
+		<copy file="./web/target/kruzok.web-1.0.0-1.war" tofile="${TOMCAT}/ROOT.war" overwrite="yes" />
+	</target>
+	
+	<target name="deploy" depends="deploy.api,deploy.war" />
+	
+	<target name="deploy.web.hot" description="Copy the war file to tomcat webapps folder">
+        <copy todir="${TOMCAT}/ROOT/WEB-INF" overwrite="yes">
+			<fileset dir="./web/src/main/webapp/WEB-INF">
+				<include name="view/**/*.jsp"/>
+				<include name="tags/**/*.tag"/>
+				<include name="taglibs/**/*.tld"/>
+				<different targetdir="${TOMCAT}/ROOT/WEB-INF" ignoreFileTimes="true"/>
+			</fileset>
+        </copy>
+        <copy todir="${TOMCAT}/ROOT/resource" overwrite="yes">
+			<fileset dir="./web/src/main/webapp/resource" includes="**/*.*">
+                <different targetdir="${TOMCAT}/ROOT/resource" ignoreFileTimes="true"/>
+			</fileset>
+        </copy>
+    </target>
+
+</project>

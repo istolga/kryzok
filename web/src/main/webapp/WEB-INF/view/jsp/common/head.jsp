@@ -21,4 +21,5 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<link rel="stylesheet" id="appmin-css" href="/css/common.css?ver=1.1" type="text/css" media="all">
+<link rel="stylesheet" href="/resource/lib/normalize.css?ver=3.0.2" type="text/css">
+<link rel="stylesheet" href="/resource/page/common.css?ver=1.1" type="text/css">
