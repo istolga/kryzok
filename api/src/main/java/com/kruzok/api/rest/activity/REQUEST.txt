@@ -1,0 +1,5 @@
+GET /api/rest/v1/activity/search?title=yelp HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Accept: application/json
+Cache-Control: no-cache
