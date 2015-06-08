@@ -35,6 +35,7 @@
     
     <import resource="classpath:web-tiles-context.xml"/>
     <import resource="classpath:web-security-context.xml"/>
+    <import resource="classpath:web-db-context.xml"/>
     <import resource="classpath:web-context.xml"/>
 	
     <!-- ******************************************************************** -->
