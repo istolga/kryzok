@@ -1,0 +1,24 @@
+on: 0.0
+os: linux
+files:
+  - source: scripts/
+    destination: /etc/kryzok/scripts
+  - source: target/api.war
+    destination: /usr/local/tomcat7/webapps
+hooks:
+  BeforeInstall:
+    - location: deploy_hooks/before-install.sh
+      runas: root
+      timeout: 10
+  AfterInstall:
+     - location: deploy_hooks/after-install.sh
+       runas: root
+       timeout: 10
+  ApplicationStart:
+    - location: deploy_hooks/start-app.sh
+      runas: root
+      timeout: 40
+  ValidateService:
+    - location: deploy_hooks/verify-service.sh
+      runas: root
+      timeout: 10

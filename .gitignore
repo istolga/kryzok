@@ -1,1 +1,13 @@
 /bin/
+
+web/target
+
+api/target/api
+api/target/classes
+
+api/target/maven-archiver
+
+api/target/maven-status
+
+
+*.iml

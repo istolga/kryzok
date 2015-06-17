@@ -16,12 +16,8 @@
 	</properties>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+		<finalName>api</finalName>
+
 		<plugins>
 			<plugin>
 				<!-- Packaging 'versioned' beans for API java clients to consume -->
