@@ -1,7 +1,7 @@
 on: 0.0
 os: linux
 files:
-  - source: scripts/
+  - source: scripts
     destination: /etc/kryzok/scripts
   - source: target/api.war
     destination: /usr/local/tomcat7/webapps
@@ -18,6 +18,10 @@ hooks:
     - location: deploy_hooks/start-app.sh
       runas: root
       timeout: 40
+  ApplicationStop:
+      - location: deploy_hooks/stop-app.sh
+        runas: root
+        timeout: 40
   ValidateService:
     - location: deploy_hooks/verify-service.sh
       runas: root
