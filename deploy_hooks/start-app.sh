@@ -6,5 +6,8 @@ echo "remove unneccessary logs"
 rm $tomcat_dir/logs/*.*
 #rm /var/log/jigsaw/web.log
 
-echo "restart tomcat"
-/etc/kryzok/scripts/restart_tomcat.sh
+tomcat_dir=/usr/local/tomcat7
+echo "Tomcat_dir :: " $tomcat_dir
+
+echo "Starting tomcat"
+$tomcat_dir/bin/startup.sh
