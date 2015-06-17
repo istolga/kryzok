@@ -23,6 +23,10 @@
         <value>/WEB-INF/log4j.properties</value>
         <value>log4j.properties</value>
         <value>classpath:log4j.properties</value>
+        
+        <value>/WEB-INF/api-config.properties</value>
+        <value>api-config.properties</value>
+        <value>classpath:api-config.properties</value>
     </util:list>
 
     <bean id="placeholderConfig" class="com.kruzok.api.util.CustomPropertyPlaceholderConfigurer">
@@ -37,8 +41,6 @@
 	<!-- ******************************************************************** -->
 	<import resource="classpath:api-context.xml"/>
 	<import resource="classpath:api-security-context.xml" />
-	
-	
 	
 	
     <!-- ******************************************************************** -->
