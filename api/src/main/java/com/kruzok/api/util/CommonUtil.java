@@ -13,9 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CommonUtil {
     
-    public static final int MAX_COLLECTION_SIZE = 50;
+    public static final int MAX_COLLECTION_SIZE = 10;
     
-    public static final int MAX_IDS_COLLECTION_SIZE = 400;
+    public static final int MAX_IDS_COLLECTION_SIZE = 100;
     
     public static <T extends Object> void normalizeListBySize(List<T> list) {
         normalizeListBySize(list, MAX_COLLECTION_SIZE);

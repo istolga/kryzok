@@ -6,13 +6,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.kruzok.api.exposed.adapter.OutputAdapter;
+import com.kruzok.api.exposed.adapter.InputAdapter;
 import com.kruzok.api.rest.activity.beans.SearchActivityRequest;
 import com.kruzok.api.rest.activity.versioned.rev1.beans.SearchActivityRequestRev1;
 
+import static com.kruzok.api.util.CommonUtil.normalizeListBySize;
+
 @Component
 public class SearchActivityRequestAdapterRev1 implements
-		OutputAdapter<SearchActivityRequestRev1, SearchActivityRequest> {
+		InputAdapter<SearchActivityRequestRev1, SearchActivityRequest> {
 
 	private static final Log log = LogFactory
 			.getLog(SearchActivityRequestAdapterRev1.class);
@@ -30,6 +32,11 @@ public class SearchActivityRequestAdapterRev1 implements
 		}
 
 		BeanUtils.copyProperties(from, to);
+		
+		normalizeListBySize(to.getCategory());
+		normalizeListBySize(to.getCity());
+		normalizeListBySize(to.getState());
+		normalizeListBySize(to.getZip());
 
 		return to;
 	}

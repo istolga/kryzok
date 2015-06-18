@@ -14,7 +14,7 @@
 		<delete file="${TOMCAT}/api.war" />
 		<delete dir="${TOMCAT}/../work" />
 		<delete dir="${TOMCAT}/../wtpwebapps" />
-		<copy file="./api/target/kruzok.api-1.0.0-1.war" tofile="${TOMCAT}/api.war" overwrite="yes" />
+		<copy file="./api/target/api.war" tofile="${TOMCAT}/api.war" overwrite="yes" />
 	</target>
 	
 	<target name="deploy.war">
