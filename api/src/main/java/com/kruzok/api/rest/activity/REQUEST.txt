@@ -1,4 +1,4 @@
-GET /api/rest/v1/activity/search?title=yelp HTTP/1.1
+GET /api/rest/v1/activity/search?freeText=yelp&url=testUrl&title=yelp&category=testCategoryA&category=testCategoryB&city=testCityA&city=testCityB&state=testStateA&state=testStateB&zip=testZipA&zip=testZipB&offset=0&pageSize=50&order=testOrder&orderBy=testOrderBy HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
 Accept: application/json

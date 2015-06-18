@@ -9,7 +9,7 @@ public class SearchActivityResponseWrapperRev1 implements Serializable {
 	
 	private static final long serialVersionUID = 1943431032471531276L;
 	private List<Activity> activities;
-
+	
 	public SearchActivityResponseWrapperRev1() {
 		super();
 	}
