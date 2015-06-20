@@ -1,9 +1,9 @@
 on: 0.0
 os: linux
 files:
-  - source: scripts
+  - source: build/scripts
     destination: /etc/kryzok/scripts
-  - source: target/api.war
+  - source: api/target/api.war
     destination: /usr/local/tomcat7/webapps
 hooks:
   BeforeInstall:
