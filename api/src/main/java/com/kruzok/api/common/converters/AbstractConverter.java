@@ -1,4 +1,4 @@
-package com.kruzok.api.rest.converters;
+package com.kruzok.api.common.converters;
 
 import java.util.ArrayList;
 import java.util.Collection;

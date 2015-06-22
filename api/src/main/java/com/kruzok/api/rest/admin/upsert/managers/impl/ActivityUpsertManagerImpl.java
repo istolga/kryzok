@@ -7,21 +7,21 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
 
 import com.kruzok.api.common.Message;
 import com.kruzok.api.common.MessageType;
 import com.kruzok.api.domain.Activity;
+import com.kruzok.api.manager.ActivityManager;
 import com.kruzok.api.rest.admin.upsert.beans.ActivityUpsertResponse;
 import com.kruzok.api.rest.admin.upsert.beans.ActivityUpsertResponseState;
-import com.kruzok.api.rest.admin.upsert.managers.ActivityManager;
+import com.kruzok.api.rest.admin.upsert.managers.ActivityUpsertManager;
 
 @Component
-public class ActivityManagerImpl implements ActivityManager {
+public class ActivityUpsertManagerImpl implements ActivityUpsertManager {
 
-	@Resource(name = "mongoTemplate")
-	private MongoOperations mongoOperation;
+	@Resource
+	private ActivityManager activityManager;
 
 	@Override
 	public List<ActivityUpsertResponse> upsert(List<Activity> activities) {
@@ -31,24 +31,16 @@ public class ActivityManagerImpl implements ActivityManager {
 			for (Activity activity : activities) {
 				ActivityUpsertResponse acResponse = null;
 				try {
-					if (activity.getId() == null) {
-						mongoOperation.save(activity);
-
-						acResponse = new ActivityUpsertResponse(activity);
-						acResponse
-								.setResponseState(ActivityUpsertResponseState.ADDED);
-					} else {
-						mongoOperation.save(activity);
-
-						acResponse = new ActivityUpsertResponse(activity);
-						acResponse
-								.setResponseState(ActivityUpsertResponseState.UPDATED);
-					}
+					ActivityUpsertResponseState state = (activity.getId() == null ? ActivityUpsertResponseState.ADDED
+							: ActivityUpsertResponseState.UPDATED);
+					activityManager.save(activity);
+					acResponse = new ActivityUpsertResponse(activity);
+					acResponse.setResponseState(state);
 				} catch (Exception exception) {
 					acResponse
 							.setResponseState(ActivityUpsertResponseState.ERROR);
 					acResponse.setMessages(Arrays.asList(new Message(
-							"We can not add " + activity.toString(),
+							"We can not add/update " + activity.toString(),
 							MessageType.DANGER)));
 				}
 

@@ -19,6 +19,11 @@ public class SearchActivityRequestAdapterRev1 implements
 	private static final Log log = LogFactory
 			.getLog(SearchActivityRequestAdapterRev1.class);
 
+	static int DEFAULT_PAGE_SIZE = 50;
+
+	@Value("${api.search.max.offset}")
+	private int SEARCH_MAX_OFFSET = 1000;
+	
 	@Value("${api.latest.version}")
 	private int latestVersion;
 
@@ -37,6 +42,14 @@ public class SearchActivityRequestAdapterRev1 implements
 		normalizeListBySize(to.getCity());
 		normalizeListBySize(to.getState());
 		normalizeListBySize(to.getZip());
+		
+		if(to.getPageSize() == null) {
+			to.setPageSize(DEFAULT_PAGE_SIZE);
+		}
+		
+		if(to.getOffset() == null) {
+			to.setOffset(0);
+		}
 
 		return to;
 	}

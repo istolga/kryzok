@@ -17,6 +17,7 @@ public class ActivityUpsertResponse extends Activity {
 	
 	public ActivityUpsertResponse(Activity activity) {
 		super(activity);
+		this.setId(activity.getId());
 	}
 
 	public ActivityUpsertResponseState getResponseState() {

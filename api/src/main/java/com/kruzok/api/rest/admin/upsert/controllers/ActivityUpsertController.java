@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 import com.kruzok.api.exposed.exception.ApiException;
 import com.kruzok.api.rest.admin.upsert.beans.ActivityUpsertRequestWrapper;
 import com.kruzok.api.rest.admin.upsert.beans.ActivityUpsertResponseWrapper;
-import com.kruzok.api.rest.admin.upsert.managers.ActivityManager;
+import com.kruzok.api.rest.admin.upsert.managers.ActivityUpsertManager;
 
 @Controller
 public class ActivityUpsertController {
 
 	@Resource
-	private ActivityManager activitykManager;
+	private ActivityUpsertManager manager;
 
 	private static final Log log = LogFactory
 			.getLog(ActivityUpsertController.class);
@@ -32,8 +33,8 @@ public class ActivityUpsertController {
 	public @ResponseBody ActivityUpsertResponseWrapper update(
 			@RequestBody ActivityUpsertRequestWrapper request) throws Exception {
 		try {
-			return new ActivityUpsertResponseWrapper(
-					activitykManager.upsert(request.getActivities()));
+			return new ActivityUpsertResponseWrapper(manager.upsert(request
+					.getActivities()));
 		} catch (Exception e) {
 			throw new ApiException(
 					HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "SYS_ERROR",

@@ -44,7 +44,7 @@ public class VersionServletRequestDataBinder extends
 		super(versionedTarget, objectName);
 		this.inputAdapter = adapter;
 	}
-
+	
 	@Override
 	public void bind(ServletRequest request) {
 		super.bind(request);

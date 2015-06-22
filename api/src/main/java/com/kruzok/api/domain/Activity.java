@@ -1,5 +1,8 @@
 package com.kruzok.api.domain;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,15 +26,23 @@ public class Activity {
 	String zip;
 
 	String streetAddress;
+	
+	Date createDate;
+	
+	Date updateDate;
 
 	public Activity() {
 		super();
 	}
 	
+	public Activity( String id) {
+		this();
+		setId(id);
+	}
+	
 	public Activity(Activity activity) {
-		super();
+		this();
 		
-		setId(activity.getId());
 		setUrl(activity.getUrl());
 		setTitle(activity.getTitle());
 		setBody(activity.getBody());
@@ -40,6 +51,10 @@ public class Activity {
 		setState(activity.getState());
 		setZip(activity.getZip());
 		setStreetAddress(activity.getStreetAddress());
+		
+		Date today = Calendar.getInstance().getTime();
+		setCreateDate(today);
+		setUpdateDate(today);
 	}
 
 	public String getId() {
@@ -112,6 +127,47 @@ public class Activity {
 
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
+	}
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Activity other = (Activity) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override

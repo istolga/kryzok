@@ -18,8 +18,7 @@ public class SearchActivityRequestValidator implements
 		IValidator<SearchActivityRequest> {
 
 	private static final String REQUEST_EMPTY_QUERY = "At least one required parameter must be specified in the request";
-	public static final String REQUEST_BAD_QUERY = "Bad {0} value";
-	public static final String REQUEST_UNSUPPORTED_QUERY = "Unsupported {0} value";
+	private static final String REQUEST_BAD_QUERY = "Bad {0} value";
 
 	@Value("${api.search.max.offset:1000}")
 	private int SEARCH_MAX_OFFSET = 1000;
@@ -104,10 +103,5 @@ public class SearchActivityRequestValidator implements
 	private void throwBadValueError(String field, Errors errors) {
 		errors.addError(HttpServletResponse.SC_BAD_REQUEST,
 				REQUEST_BAD_QUERY.replace("{0}", field));
-	}
-
-	private void throwUnsupportedValueError(String field, Errors errors) {
-		errors.addError(HttpServletResponse.SC_BAD_REQUEST,
-				REQUEST_UNSUPPORTED_QUERY.replace("{0}", field));
 	}
 }

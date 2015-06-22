@@ -9,33 +9,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.kruzok.api.exposed.exception.ApiException;
-import com.kruzok.api.rest.activity.beans.SearchActivityRequest;
-import com.kruzok.api.rest.activity.beans.SearchActivityResponseWrapper;
-import com.kruzok.api.rest.activity.managers.SearchActivityManager;
-import com.kruzok.api.rest.activity.validators.SearchActivityRequestValidator;
+import com.kruzok.api.rest.activity.beans.UnSubscribeActivityRequest;
+import com.kruzok.api.rest.activity.managers.SubscribeActivityManager;
+import com.kruzok.api.rest.activity.validators.UnSubscribeActivityRequestValidator;
 
 @Controller
-public class SearchActivityController {
-
-	@Resource
-	private SearchActivityManager manager;
-	@Resource
-	private SearchActivityRequestValidator validator;
+public class UnSubscribeActivityController {
 
 	private static final Log log = LogFactory
-			.getLog(SearchActivityController.class);
+			.getLog(UnSubscribeActivityController.class);
 
-	@RequestMapping(value = { "/rest/v{version:[\\d]*}/activity/search" }, method = { RequestMethod.GET })
+	@Resource
+	private UnSubscribeActivityRequestValidator validator;
+	@Resource
+	private SubscribeActivityManager subscribeManager;
+
+	@RequestMapping(value = { "/rest/v{version:[\\d]*}/activity/unsubscribe"
+
+	}, method = { RequestMethod.POST })
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody SearchActivityResponseWrapper search(
-			SearchActivityRequest request) throws Exception {
+	public void unsubscribe(UnSubscribeActivityRequest request)
+			throws Exception {
 		try {
 			validator.validate(request);
-			return new SearchActivityResponseWrapper(manager.search(request));
+			subscribeManager.unsubscribe(request);
 		} catch (ApiException e) {
 			log.info(getLogMessage(request));
 			throw e;
@@ -47,11 +47,12 @@ public class SearchActivityController {
 		}
 	}
 
-	private String getLogMessage(SearchActivityRequest request) {
+	private String getLogMessage(UnSubscribeActivityRequest request) {
 		StringBuilder builder = new StringBuilder(
-				"We can't search activity by request('" + request.toString()
-						+ "').");
+				"We can't unsubscribe activity by request('"
+						+ request.toString() + "').");
 		// TODO: KA we need to log user information here
 		return builder.toString();
 	}
+
 }
