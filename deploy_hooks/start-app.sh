@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "remove unneccessary logs"
+echo "remove unnecessary logs"
 
 #rm -rf $tomcat_dir/webapps/api
 rm $tomcat_dir/logs/*.*

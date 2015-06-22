@@ -1,3 +1,8 @@
 #!/bin/sh
 
-echo "Before install"
+war_file=/etc/kryzok/api.war
+
+if [ -f  "${war_file}" ]; then
+  echo "Removing old war file $war_file"
+  rm $war_file
+fi

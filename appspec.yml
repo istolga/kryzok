@@ -23,7 +23,7 @@ files:
   - source: build/scripts
     destination: /etc/kryzok/scripts
   - source: api/target/api.war
-    destination: /usr/local/tomcat7/webapps
+    destination: /etc/kryzok
 # For deployments to Amazon Linux and Ubuntu Server instances, 
 #   you can specify a "permissions" 
 #   section here that describes special permissions to apply to the files 
