@@ -2,8 +2,8 @@
 
 echo "remove unnecessary logs"
 
-#rm -rf $tomcat_dir/webapps/api
 rm $tomcat_dir/logs/*.*
+rm -rf $tomcat_dir/work/Catalina/localhost
 #rm /var/log/jigsaw/web.log
 
 tomcat_dir=/usr/local/tomcat7
