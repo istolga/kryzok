@@ -11,3 +11,5 @@ api/target/maven-status
 
 
 *.iml
+
+api/target/dependency
