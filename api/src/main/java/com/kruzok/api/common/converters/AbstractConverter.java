@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.convert.converter.Converter;
 
 public abstract class AbstractConverter<D, M> implements Converter<D, M> {

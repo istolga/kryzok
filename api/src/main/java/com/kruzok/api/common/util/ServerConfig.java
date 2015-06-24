@@ -11,7 +11,7 @@ public final class ServerConfig {
 
 	protected static Log log = LogFactory.getLog(ServerConfig.class);
 
-	private static final String DWM_API_VERSION_PROPERTIES = "swm_api_version.properties";
+	private static final String DWM_API_VERSION_PROPERTIES = "api_version.properties";
 	private static final Properties pomProperties = new Properties();
 	private static String apiBuildVersion;
 

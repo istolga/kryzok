@@ -20,12 +20,6 @@
 
 	
 	<util:list id="propertiesList" value-type="java.lang.String">
-        <value>/WEB-INF/log4j.properties</value>
-        <value>log4j.properties</value>
-        <value>classpath:log4j.properties</value>
-        
-        <value>/WEB-INF/api-config.properties</value>
-        <value>api-config.properties</value>
         <value>classpath:api-config.properties</value>
     </util:list>
 
@@ -34,6 +28,15 @@
         <property name="ignoreUnresolvablePlaceholders" value="true" />
         <property name="ignoreResourceNotFound" value="true"/>
 		<property name="locations" ref="propertiesList" />
+    </bean>
+    <bean id="log4jConfigurer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass"><value>org.springframework.util.Log4jConfigurer</value></property>
+        <property name="targetMethod"><value>initLogging</value></property>
+        <property name="arguments">
+            <list>
+                <value>classpath:kryzok-log4j.properties</value>
+            </list>
+        </property>
     </bean>
 	
 	<!-- ******************************************************************** -->
