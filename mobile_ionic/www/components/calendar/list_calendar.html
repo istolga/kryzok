@@ -1,0 +1,36 @@
+<ion-view>
+    <ion-nav-buttons side="left">
+        <div title="Menu" class="pts plm" menu-toggle="left">
+            <span class="icon-utility-rows active--icon-1 text-color-5 f1"></span>
+        </div>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <span class="text-color-5 dib lh-44 fw-semibold f2 ng-binding">Calendar</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <div title="Add" class="pts prm" ng-click="add()">
+            <span class="icon-utility-filter active--icon-1 text-color-5 f1"></span>
+        </div>
+    </ion-nav-buttons>
+
+    <ion-content class="calendar-page" has-header="true">
+        <ion-list show-delete="shouldShowDelete" can-swipe="listCanSwipe">
+            <ion-item ng-repeat="item in schedules" class="item-thumbnail-left">
+                <h2>{{item.title}}</h2>
+                <p>{{item.fromDate}} - {{item.toDate}}</p>
+
+                <ion-option-button class="button-positive"
+                                   ng-click="share(item)">
+                    Share
+                </ion-option-button>
+                <ion-option-button class="button-info"
+                                   ng-click="edit(item)">
+                    Edit
+                </ion-option-button>
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="delete($index)">
+                </ion-delete-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
