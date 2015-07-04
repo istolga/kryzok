@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'kryzok.calendar'])
+angular.module('starter', ['ionic', 'starter.controllers', 'kryzok.calendar', 'kryzok.exception'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -52,7 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'kryzok.calendar'])
       views: {
         'menuContent': {
           templateUrl: "components/calendar/list_calendar.html",
-          controller: 'ListCalendarCtr'
+          controller: 'ListCalendarController'
         }
       }
     })

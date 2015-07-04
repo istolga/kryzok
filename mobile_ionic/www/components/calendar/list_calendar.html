@@ -14,10 +14,12 @@
     </ion-nav-buttons>
 
     <ion-content class="calendar-page" has-header="true">
+        <div ng-repeat="item in schedules">
+            <h2>{{item.date}}</h2>
         <ion-list show-delete="shouldShowDelete" can-swipe="listCanSwipe">
-            <ion-item ng-repeat="item in schedules" class="item-thumbnail-left">
-                <h2>{{item.title}}</h2>
-                <p>{{item.fromDate}} - {{item.toDate}}</p>
+            <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left">
+                <p>{{schedule.fromTime}} {{schedule.title}}</p>
+                <p>{{schedule.desc}}</p>
 
                 <ion-option-button class="button-positive"
                                    ng-click="share(item)">
@@ -32,5 +34,6 @@
                 </ion-delete-button>
             </ion-item>
         </ion-list>
+        </div>
     </ion-content>
 </ion-view>

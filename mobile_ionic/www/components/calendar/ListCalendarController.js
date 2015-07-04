@@ -1,38 +1,39 @@
-angular.module('kryzok.calendar', ['kryzok.calendar.service']).controller('ListCalendarCtr', ListCalendarController);
+(function() {
+    'use strict';
 
-ListCalendarController.$inject = ['$scope', 'CalendarServ'];
-function ListCalendarController($scope, CalendarService) {
-    console.log("in list calendar controller");
+    angular
+        .module('kryzok.calendar', ['kryzok.calendar.service'])
+        .controller('ListCalendarController', ListCalendarController);
 
-    var vm = this;
-    $scope.schedules = [];
-    $scope.shouldShowDelete = true;
-    $scope.listCanSwipe = true;
+    ListCalendarController.$inject = ['$scope', 'CalendarService'];
+    function ListCalendarController($scope, CalendarService) {
+        console.log("in list calendar controller");
 
-    vm.init = function () {
-        vm.getSchedules();
+        var vm = this;
+        $scope.schedules = [];
+        $scope.shouldShowDelete = true;
+        $scope.listCanSwipe = true;
 
-    };
-    vm.getSchedules = function() {
-        return CalendarService.getSchedules().then(function(data) {
-            console.log("in done function");
-            $scope.schedules = data;
-            console.log($scope.schedules[0].title);
-            return $scope.schedules;
-        });
+        vm.activate = function () {
+            CalendarService.getSchedules().then(function(returnedSchedules) {
+                console.log("in done function");
+                $scope.schedules = returnedSchedules;
+            });
+        };
+
+        $scope.share = function () {
+            console.log("in share");
+        };
+        $scope.edit = function () {
+            console.log("in edit");
+        };
+        $scope.delete = function () {
+            console.log("in delete");
+        };
+        $scope.add = function () {
+            console.log("in add");
+        };
+
+        vm.activate();
     }
-    $scope.share = function () {
-        console.log("in share");
-    };
-    $scope.edit = function () {
-        console.log("in edit");
-    };
-    $scope.delete = function () {
-        console.log("in delete");
-    };
-    $scope.add = function () {
-        console.log("in add");
-    };
-
-    vm.init();
-}
+})();
