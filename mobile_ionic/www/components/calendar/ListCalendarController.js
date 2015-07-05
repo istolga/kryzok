@@ -5,8 +5,8 @@
         .module('kryzok.calendar', ['kryzok.calendar.service'])
         .controller('ListCalendarController', ListCalendarController);
 
-    ListCalendarController.$inject = ['$scope', 'CalendarService'];
-    function ListCalendarController($scope, CalendarService) {
+    ListCalendarController.$inject = ['$state', '$scope', 'CalendarService'];
+    function ListCalendarController($state, $scope, CalendarService) {
         console.log("in list calendar controller");
 
         var vm = this;
@@ -30,8 +30,10 @@
         $scope.delete = function () {
             console.log("in delete");
         };
-        $scope.add = function () {
-            console.log("in add");
+        $scope.search = function () {
+        	$state.go('app.search', {
+    			refresh: new Date().getTime()
+    		});
         };
 
         vm.activate();
