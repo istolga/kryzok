@@ -35,16 +35,20 @@
                     {"title": "Basketball", "fromDate": "2015-06-01-09:00", "toDate":"2015-08-15-10:00", "days":"Tue,Wed"},
                     {"title": "Gymnastics", "fromDate": "2015-07-15-15:00", "toDate":"2015-08-15-16:00", "days":"Thu,Fri"}]*/
 
-                //order by date, then schedule start time list
+                //order by date, then schedule start time list, need am and pm dates especially for USA, will have this in request
+                // wrongly parse +1 day when I have 11.54pm
                 return [
-                    {"date":"2015-07-01",
-                        "schedules":[{"title": "Soccer1", "fromTime": "07:00", "toTime":"09:00", "desc":"This is our soccer"},
-                            {"title": "Basketball", "fromTime": "11:00", "toTime":"12:00", "desc":"This is our basketball"},
-                            {"title": "Gymnastics", "fromTime": "15:00", "toTime":"16:00", "desc":"This is our Gymnastics"}]},
+                    {"date":"2015-07-05",
+                        "schedules":[{"title": "Soccer1", "fromTime": "07:00a", "toTime":"09:00a", "desc":"This is our soccer"},
+                            {"title": "Basketball", "fromTime": "11:00a", "toTime":"12:00p", "desc":"This is our basketball"},
+                            {"title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p", "desc":"This is our Gymnastics"}]},
 
-                {"date":"2015-07-07",
-                    "schedules":[{"title": "Gymnastics", "fromTime": "15:00", "toTime":"2015-08-15-16:00", "desc":"This is our another Gymnastics"}]
-                }
+                {"date":"2015-07-06",
+                    "schedules":[{"title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p", "desc":"This is our another Gymnastics"}]
+                },
+                    {"date":"2015-07-10",
+                        "schedules":[{"title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p", "desc":""}]
+                    }
                 ]
             }
 

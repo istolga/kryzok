@@ -1,3 +1,31 @@
 /*body {
   background-color: red;
 }*/
+.kryzok-calendar-date {
+  margin-bottom: 10px;
+}
+.kryzok-calendar-title {
+  font-weight: bold;
+}
+.calendar-page .item {
+  border: none;
+  min-height: 30px;
+  margin-bottom: 20px;
+}
+.calendar-page .item-content {
+  width: 310px;
+  min-height: 20px;
+
+  padding-left: 10px;
+  margin-left: 30px;
+
+  background-color: white;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #c5c5c5;
+  -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
