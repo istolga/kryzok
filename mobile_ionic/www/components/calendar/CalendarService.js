@@ -3,15 +3,53 @@
 
     angular.module('kryzok.calendar.service', []).factory('CalendarService', CalendarService);
 
-    CalendarService.$inject = ["$http", "ExceptionService"];
+    CalendarService.$inject = ["$http", '$q', "ExceptionService"];
+    var SCHEDULES_UPDATE_INTERVAL_MS = 2 * 3600 * 1000;
 
-    function CalendarService($http, ExceptionService) {
+    function CalendarService($http, $q, ExceptionService) {
+        var that = this;
+
+        that.lastScheduleReqDate = null;
+        that.schedules = [];//add saving it in some storage
+        that.activites = [];
+
         return {
-            getSchedules: getSchedules
+            getSchedules: getSchedules,
+            getActivities: getActivities
         };
         function getSchedules() {
+            if (that.schedules.length < 1 || isOldData()) {
+                return requestNewSchedules();
+            } else {
+                console.log("returned cached schedules");
+                return $q(function (resolve, reject) {
+                    resolve(that.schedules);
+                });
+            }
+        };
+        function getActivities() {
+            if (that.activites.length < 1 || isOldData()) {
+                return $q(function (resolve, reject) {
+                    //change catch to catch(reject... when adding real data
+                    requestNewSchedules().then(function() {
+                        console.log("in resolve for activities");
+                        resolve(that.activites);
+                    }).catch(function() {
+                        console.log("in catch for activities");
+                        resolve(that.activites)
+                    });
+                });
+            } else {
+                console.log("returned cached activities");
+                return $q(function (resolve, reject) {
+                    resolve(that.activites);
+                });
+            }
+        };
+        function requestNewSchedules() {
             //TODO insert real call
-            console.log("in getSchedules");
+            console.log("in requestNewSchedules");
+
             var headers = {
                 'Access-Control-Allow-Origin' : '*',
                 'Access-Control-Allow-Methods' : 'POST, GET, OPTIONS, PUT',
@@ -28,28 +66,67 @@
                 .catch(getSchedulesFailed);
 
             function getSchedulesComplete(response) {
-                //return response.data.results;
-                //TODO real data
+                //TODO real data, set lastScheduleDate only when everything is success
                 console.log("return data");
-                /*return [{"title": "Soccer1", "fromDate": "2015-07-01-17:00", "toDate":"2015-08-15-19:00", "days":"Mon,Wed"},
-                    {"title": "Basketball", "fromDate": "2015-06-01-09:00", "toDate":"2015-08-15-10:00", "days":"Tue,Wed"},
-                    {"title": "Gymnastics", "fromDate": "2015-07-15-15:00", "toDate":"2015-08-15-16:00", "days":"Thu,Fri"}]*/
 
-                //order by date, then schedule start time list, need am and pm dates especially for USA, will have this in request
-                // wrongly parse +1 day when I have 11.54pm
-                return [
+                var response = { "listSchedules": [
                     {"date":"2015-07-05",
-                        "schedules":[{"title": "Soccer1", "fromTime": "07:00a", "toTime":"09:00a", "desc":"This is our soccer"},
-                            {"title": "Basketball", "fromTime": "11:00a", "toTime":"12:00p", "desc":"This is our basketball"},
-                            {"title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p", "desc":"This is our Gymnastics"}]},
+                        "schedules":[
+                            {"id": "123", "title": "MiniKickers soccer class", "fromTime": "07:00a", "toTime":"08:00a"},
+
+                            {"id": "346","title": "Basketball", "fromTime": "11:00a", "toTime":"12:00p"},
+
+                            {"id": "678","title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p"}
+                        ]},
 
                 {"date":"2015-07-06",
-                    "schedules":[{"title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p", "desc":"This is our another Gymnastics"}]
+                    "schedules":[{"id": "678", "title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p"}]
                 },
                     {"date":"2015-07-10",
-                        "schedules":[{"title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p", "desc":""}]
+                        "schedules":[{"id": "123", "title": "MiniKickers soccer class", "fromTime": "2:00pm", "toTime":"3:30pm"}]
                     }
-                ]
+                ],
+                "activities": {
+                    "123": {
+                        "title": "MiniKickers soccer class", "fromTime": "07:00a", "toTime": "08:00a",
+                        "desc": "A FUNdamental Introduction to the game of soccer for players aged 2 - 5. Players learn the introductory skills of soccer through fun games, stories and music in weekly classes lasting 45 - 60 mins",
+                        "location": {
+                            "name": "Challenger Soccer Academy", "address": "1911 Elkhorn Court", "city": "San Mateo",
+                            "state_province": "CA", "zip": "94040", "country": "USA"
+                        },
+                        "emails": {"primary": "academy@challengersports.com", "office": "info@challengersports.com"},
+                        "phones": {"primary": "1.800.878.2167", "office": "1.800.878.2169"}
+                    },
+
+                    "346": {
+                        "title": "Basketball", "fromTime": "11:00a", "toTime": "12:00p",
+                        "desc": "M & M Sports is a non-profit organization with the ultimate goal of providing organized sports and games for our youth and adults. This web site will keep you informed of up coming activities and provide registration forms for each activity",
+                        "location": {
+                            "name": "M&M Youth Sports", "address": "3298 Los Prados St", "city": "San Mateo",
+                            "state_province": "CA", "zip": "94040", "country": "USA"
+                        },
+                        "emails": {"primary": "john_masters@sbcglobal.net"},
+                        "phones": {"primary": "650-703-4740"}
+                    },
+
+                    "678": {
+                        "title": "Gymnastics", "fromTime": "03:00p", "toTime": "04:00p",
+                        "desc": "Peninsula Gymnastics was founded for the purpose of creating a professional gymnastics training center in a friendly and professional atmosphere where all students can reach his/her potential",
+                        "website": "http://www.peninsulagym.com",
+                        "location": {
+                            "name": "Peninsula Gymnastics", "address": "1740 Leslie Street", "city": "San Mateo",
+                            "state_province": "CA", "zip": "94040", "country": "USA"
+                        },
+                        "emails": {"primary": "nfo@peninsulagym.com"},
+                        "phones": {"primary": "650.571.7555"}
+                    }
+                }
+                };
+                that.schedules = response.listSchedules;
+                that.activites = response.activities;
+                that.lastScheduleReqDate = new Date();
+
+                return that.schedules;
             }
 
             function getSchedulesFailed(error) {
@@ -57,6 +134,14 @@
                 return getSchedulesComplete("any");
                 //logger.error('XHR Failed for getSchedules.' + error.data);
             }
+        };
+        function isOldData() {
+            if (that.lastScheduleReqDate) {
+                var currentDate = new Date();
+                var differenceInMs = currentDate.getTime() - that.lastScheduleReqDate.getTime();
+                return differenceInMs > SCHEDULES_UPDATE_INTERVAL_MS
+            }
+            return true;
         }
     }
 })();

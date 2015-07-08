@@ -1,0 +1,18 @@
+<ion-view>
+    <ion-nav-buttons side="left">
+        <div title="Back" class="pts plm" ng-click="myGoBack()">
+            <span class="icon-utility-back active--icon-1 text-color-5 f1"></span>
+        </div>
+    </ion-nav-buttons>
+    <ion-nav-title>
+    </ion-nav-title>
+    <ion-content class="calendar-page" has-header="true">
+        <h1>{{schedule.title}}</h1>
+        <p>{{schedule.fromTime}} - {{schedule.toTime}}</p>
+        <p>{{schedule.website}}</p>
+        <p>{{schedule.location.name}} {{schedule.location.address}} {{schedule.location.city}} {{schedule.location.state_province}} {{schedule.location.zip}} {{schedule.location.country}}</p>
+        <p>{{schedule.phones.primary}}</p>
+        <p>{{schedule.emails.primary}}</p>
+        <p>{{schedule.desc}}</p>
+    </ion-content>
+</ion-view>

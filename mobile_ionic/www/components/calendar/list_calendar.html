@@ -18,10 +18,9 @@
             <div class="kryzok-calendar-date">
                 {{item.date | prettyDate}}
             </div>
-        <ion-list show-delete="shouldShowDelete" can-swipe="listCanSwipe">
-            <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left">
+            <div class="list list-left-editing">
+            <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left" on-tap="viewItem({{schedule.id}})">
                 <p>{{schedule.fromTime}} <span class="kryzok-calendar-title">{{schedule.title}}</span></p>
-                <p>{{schedule.desc}}</p>
 
                 <!--ion-option-button class="button-positive"
                                    ng-click="share(item)">
@@ -35,7 +34,7 @@
                                    ng-click="delete($index)">
                 </ion-delete-button-->
             </ion-item>
-        </ion-list>
+        </div>
         </div>
     </ion-content>
 </ion-view>
