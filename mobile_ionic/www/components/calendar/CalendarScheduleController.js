@@ -20,6 +20,9 @@
         if (scheduleId) {
           console.log("show schedule with id: " + scheduleId);
           $scope.schedule = returnedActivities[scheduleId];
+          $scope.fromTime = $stateParams.fromTime;
+          $scope.toTime = $stateParams.toTime;
+
           console.log($scope.schedule);
         }
       });

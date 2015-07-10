@@ -70,7 +70,7 @@ kruzokMobile.config(function ($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.schedule', {
-      url: "/schedule/:scheduleId",
+      url: "/schedule/:scheduleId:fromTime:toTime",
       views: {
         'menuContent': {
           templateUrl: "components/calendar/calendar_schedule.html",

@@ -19,7 +19,8 @@
                 {{item.date | prettyDate}}
             </div>
             <div class="list list-left-editing">
-            <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left" on-tap="viewItem({{schedule.id}})">
+            <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left"
+                      on-tap="viewItem('{{schedule.id}}', '{{schedule.fromTime}}', '{{schedule.toTime}}')">
                 <p>{{schedule.fromTime}} <span class="kryzok-calendar-title">{{schedule.title}}</span></p>
 
                 <!--ion-option-button class="button-positive"

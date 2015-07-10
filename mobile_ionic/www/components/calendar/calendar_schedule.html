@@ -5,14 +5,17 @@
         </div>
     </ion-nav-buttons>
     <ion-nav-title>
+        <span class="text-color-5 dib lh-44 fw-semibold f2 ng-binding">{{schedule.title}}</span>
     </ion-nav-title>
-    <ion-content class="calendar-page" has-header="true">
-        <h1>{{schedule.title}}</h1>
-        <p>{{schedule.fromTime}} - {{schedule.toTime}}</p>
-        <p>{{schedule.website}}</p>
-        <p>{{schedule.location.name}} {{schedule.location.address}} {{schedule.location.city}} {{schedule.location.state_province}} {{schedule.location.zip}} {{schedule.location.country}}</p>
-        <p>{{schedule.phones.primary}}</p>
-        <p>{{schedule.emails.primary}}</p>
-        <p>{{schedule.desc}}</p>
+    <div class="schedule-page" has-header="true">
+        <div class="scheduleTime"><div class="startTime">{{fromTime}}</div><div class="toTime">{{toTime}}</div></div>
+        <div class="website">{{schedule.website}}</div>
+        <div class="location"><div class="icon"></div><div class="text"><p class="name">{{schedule.location.name}}</p>
+            {{schedule.location.address}} {{schedule.location.city}} {{schedule.location.state_province}} {{schedule.location.zip}} {{schedule.location.country}}</div>
+        </div>
+        <div class="phone"><div class="icon"></div><div class="text">{{schedule.phones.primary}}</div></div>
+        <div class="email"><div class="icon"></div><div class="text">{{schedule.emails.primary}}</div></div>
+        <div class="desc">{{schedule.desc}}</div>
+    </div>
     </ion-content>
 </ion-view>

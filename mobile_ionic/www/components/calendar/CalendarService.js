@@ -88,7 +88,7 @@
                 ],
                 "activities": {
                     "123": {
-                        "title": "MiniKickers soccer class", "fromTime": "07:00a", "toTime": "08:00a",
+                        "title": "MiniKickers soccer class",
                         "desc": "A FUNdamental Introduction to the game of soccer for players aged 2 - 5. Players learn the introductory skills of soccer through fun games, stories and music in weekly classes lasting 45 - 60 mins",
                         "location": {
                             "name": "Challenger Soccer Academy", "address": "1911 Elkhorn Court", "city": "San Mateo",
@@ -99,7 +99,7 @@
                     },
 
                     "346": {
-                        "title": "Basketball", "fromTime": "11:00a", "toTime": "12:00p",
+                        "title": "Basketball",
                         "desc": "M & M Sports is a non-profit organization with the ultimate goal of providing organized sports and games for our youth and adults. This web site will keep you informed of up coming activities and provide registration forms for each activity",
                         "location": {
                             "name": "M&M Youth Sports", "address": "3298 Los Prados St", "city": "San Mateo",
@@ -110,7 +110,7 @@
                     },
 
                     "678": {
-                        "title": "Gymnastics", "fromTime": "03:00p", "toTime": "04:00p",
+                        "title": "Gymnastics",
                         "desc": "Peninsula Gymnastics was founded for the purpose of creating a professional gymnastics training center in a friendly and professional atmosphere where all students can reach his/her potential",
                         "website": "http://www.peninsulagym.com",
                         "location": {

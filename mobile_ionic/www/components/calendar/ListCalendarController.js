@@ -20,10 +20,12 @@
                 $scope.schedules = returnedSchedules;
             });
         };
-        $scope.viewItem = function(itemId) {
+        $scope.viewItem = function(itemId, _fromTime, _toTime) {
             console.log("in view item, will go to schedule");
             $state.go('app.schedule', {
-                scheduleId: itemId
+                scheduleId: itemId,
+                fromTime: _fromTime,
+                toTime: _toTime
             });
         };
         $scope.share = function () {
