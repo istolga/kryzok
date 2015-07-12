@@ -3,10 +3,10 @@
 
     angular.module('kryzok.calendar.service', []).factory('CalendarService', CalendarService);
 
-    CalendarService.$inject = ["$http", '$q', "ExceptionService"];
+    CalendarService.$inject = ["$http", '$q', '$filter', 'ExceptionService'];
     var SCHEDULES_UPDATE_INTERVAL_MS = 2 * 3600 * 1000;
 
-    function CalendarService($http, $q, ExceptionService) {
+    function CalendarService($http, $q, $filter, ExceptionService) {
         var that = this;
 
         that.lastScheduleReqDate = null;
@@ -69,7 +69,7 @@
                 //TODO real data, set lastScheduleDate only when everything is success
                 console.log("return data");
 
-                var response = { "listSchedules": [
+                var responseListSchedules = [
                     {"date":"2015-07-05",
                         "schedules":[
                             {"id": "123", "title": "MiniKickers soccer class", "fromTime": "07:00a", "toTime":"08:00a"},
@@ -79,13 +79,25 @@
                             {"id": "678","title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p"}
                         ]},
 
-                {"date":"2015-07-06",
-                    "schedules":[{"id": "678", "title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p"}]
-                },
+                    {"date":"2015-07-06",
+                        "schedules":[{"id": "678", "title": "Gymnastics", "fromTime": "03:00p", "toTime":"04:00p"}]
+                    },
                     {"date":"2015-07-10",
                         "schedules":[{"id": "123", "title": "MiniKickers soccer class", "fromTime": "2:00pm", "toTime":"3:30pm"}]
                     }
-                ],
+                ];
+                var responseListSchedulesGenerated = [];
+                var maxDays = 60;
+                var scheduleDate = new Date();
+                for (var i = 0; i < maxDays; ++i) {
+                    responseListSchedulesGenerated[i] = {};
+                    responseListSchedulesGenerated[i].date = $filter('date')(scheduleDate, 'yyyy-MM-dd');
+                    responseListSchedulesGenerated[i].schedules = responseListSchedules[i % 3].schedules;
+
+                    scheduleDate.setDate(scheduleDate.getDate() + 1);
+                }
+
+                var response = { "listSchedules": responseListSchedulesGenerated,
                 "activities": {
                     "123": {
                         "title": "MiniKickers soccer class",
@@ -117,7 +129,7 @@
                             "name": "Peninsula Gymnastics", "address": "1740 Leslie Street", "city": "San Mateo",
                             "state_province": "CA", "zip": "94040", "country": "USA"
                         },
-                        "emails": {"primary": "nfo@peninsulagym.com"},
+                        "emails": {"primary": "info@peninsulagym.com"},
                         "phones": {"primary": "650.571.7555"}
                     }
                 }

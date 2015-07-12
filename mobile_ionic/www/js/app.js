@@ -21,7 +21,9 @@ kruzokMobile.run(function ($ionicPlatform) {
   });
 });
 
-kruzokMobile.config(function ($stateProvider, $urlRouterProvider) {
+kruzokMobile.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(geo|maps):/);
+
   $stateProvider
 
     .state('app', {
@@ -70,7 +72,7 @@ kruzokMobile.config(function ($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.schedule', {
-      url: "/schedule/:scheduleId:fromTime:toTime",
+      url: "/schedule?scheduleId&scheduleDate&fromTime&toTime",
       views: {
         'menuContent': {
           templateUrl: "components/calendar/calendar_schedule.html",

@@ -9,7 +9,7 @@
     </ion-nav-title>
     <ion-nav-buttons side="right">
         <div title="Search" class="pts prm" ng-click="search()">
-            <span class="icon-utility-search active--icon-1 text-color-5 f1"></span>
+            <span class="icon-utility-add active--icon-1 text-color-5 f1"></span>
         </div>
     </ion-nav-buttons>
 
@@ -20,8 +20,8 @@
             </div>
             <div class="list list-left-editing">
             <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left"
-                      on-tap="viewItem('{{schedule.id}}', '{{schedule.fromTime}}', '{{schedule.toTime}}')">
-                <p>{{schedule.fromTime}} <span class="kryzok-calendar-title">{{schedule.title}}</span></p>
+                      on-tap="viewItem('{{schedule.id}}', '{{item.date}}', '{{schedule.fromTime}}', '{{schedule.toTime}}')">
+                {{schedule.fromTime}} <span class="kryzok-calendar-title">{{schedule.title}}</span>
 
                 <!--ion-option-button class="button-positive"
                                    ng-click="share(item)">

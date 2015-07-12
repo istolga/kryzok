@@ -20,10 +20,11 @@
                 $scope.schedules = returnedSchedules;
             });
         };
-        $scope.viewItem = function(itemId, _fromTime, _toTime) {
+        $scope.viewItem = function(itemId, _scheduleDate, _fromTime, _toTime) {
             console.log("in view item, will go to schedule");
             $state.go('app.schedule', {
                 scheduleId: itemId,
+                scheduleDate: _scheduleDate,
                 fromTime: _fromTime,
                 toTime: _toTime
             });

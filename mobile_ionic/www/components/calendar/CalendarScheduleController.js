@@ -5,12 +5,16 @@
     .module('kryzok.calendar.schedule', ['kryzok.calendar.service'])
     .controller('CalendarScheduleController', CalendarScheduleController);
 
-  CalendarScheduleController.$inject = ['$state', '$scope', '$stateParams', '$ionicHistory', 'CalendarService'];
-  function CalendarScheduleController($state, $scope, $stateParams, $ionicHistory, CalendarService) {
+  CalendarScheduleController.$inject = ['$scope', '$stateParams', '$ionicHistory', '$ionicPlatform', 'CalendarService'];
+  function CalendarScheduleController($scope, $stateParams, $ionicHistory, $ionicPlatform, CalendarService) {
     console.log("in calendar schedule controller");
 
     var vm = this;
-    $scope.schedule = [];
+    $scope.schedule = {};
+    $scope.mapsUrl = "geo:0,0";
+    $scope.fromTime = $stateParams.fromTime;
+    $scope.toTime = $stateParams.toTime;
+    $scope.scheduleDate = $stateParams.scheduleDate;
 
     vm.activate = function () {
       console.log("in activate of CalendarScheduleController");
@@ -20,13 +24,19 @@
         if (scheduleId) {
           console.log("show schedule with id: " + scheduleId);
           $scope.schedule = returnedActivities[scheduleId];
-          $scope.fromTime = $stateParams.fromTime;
-          $scope.toTime = $stateParams.toTime;
 
-          console.log($scope.schedule);
+          if ($ionicPlatform.is('ios')) {
+            $scope.mapsUrl = "maps://";
+          }
+          var location = $scope.schedule.location;
+          if (location) {
+            $scope.mapsUrl += "?q=" + location.address + "," + location.city + "," + location.state_province + ","
+              + location.zip + "," + location.country;
+          }
         }
       });
     };
+
     $scope.myGoBack = function () {
       $ionicHistory.goBack();
     };
