@@ -22,6 +22,9 @@
             <ion-item ng-repeat="schedule in item.schedules" class="item-thumbnail-left"
                       on-tap="viewItem('{{schedule.id}}', '{{item.date}}', '{{schedule.fromTime}}', '{{schedule.toTime}}')">
                 {{schedule.fromTime}} <span class="kryzok-calendar-title">{{schedule.title}}</span>
+                <p>
+                    <div class="icon-utility-share" ng-click="share('{{schedule.id}}');$event.stopPropagation();"></div>
+                </p>
 
                 <!--ion-option-button class="button-positive"
                                    ng-click="share(item)">

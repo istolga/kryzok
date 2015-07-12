@@ -18,12 +18,14 @@
 
     vm.activate = function () {
       console.log("in activate of CalendarScheduleController");
-      CalendarService.getActivities().then(function(returnedActivities) {
+      CalendarService.getSchedules().then(function(response) {
         console.log("in done function for activities");
+        var activities = response.activities;
+
         var scheduleId = $stateParams.scheduleId;
-        if (scheduleId) {
+        if (activities && scheduleId) {
           console.log("show schedule with id: " + scheduleId);
-          $scope.schedule = returnedActivities[scheduleId];
+          $scope.schedule = activities[scheduleId];
 
           if ($ionicPlatform.is('ios')) {
             $scope.mapsUrl = "maps://";

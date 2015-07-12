@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var kruzokMobile = angular.module('starter', ['ionic', 'starter.controllers', 'kryzok.calendar', 'kryzok.calendar.filters',
+var kruzokMobile = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'kryzok.calendar', 'kryzok.calendar.filters',
   'kryzok.calendar.schedule','kryzok.search', 'kryzok.about', 'kryzok.exception']);
 
 kruzokMobile.run(function ($ionicPlatform) {

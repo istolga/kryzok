@@ -9,13 +9,12 @@
     function CalendarService($http, $q, $filter, ExceptionService) {
         var that = this;
 
-        that.lastScheduleReqDate = null;
+        that.lastReqDate = null;
         that.schedules = [];//add saving it in some storage
-        that.activites = [];
+        that.activites = {};
 
         return {
-            getSchedules: getSchedules,
-            getActivities: getActivities
+            getSchedules: getSchedules
         };
         function getSchedules() {
             if (that.schedules.length < 1 || isOldData()) {
@@ -23,29 +22,11 @@
             } else {
                 console.log("returned cached schedules");
                 return $q(function (resolve, reject) {
-                    resolve(that.schedules);
+                    resolve({"schedules": that.schedules, "activities": that.activites});
                 });
             }
         };
-        function getActivities() {
-            if (that.activites.length < 1 || isOldData()) {
-                return $q(function (resolve, reject) {
-                    //change catch to catch(reject... when adding real data
-                    requestNewSchedules().then(function() {
-                        console.log("in resolve for activities");
-                        resolve(that.activites);
-                    }).catch(function() {
-                        console.log("in catch for activities");
-                        resolve(that.activites)
-                    });
-                });
-            } else {
-                console.log("returned cached activities");
-                return $q(function (resolve, reject) {
-                    resolve(that.activites);
-                });
-            }
-        };
+
         function requestNewSchedules() {
             //TODO insert real call
             console.log("in requestNewSchedules");
@@ -136,9 +117,9 @@
                 };
                 that.schedules = response.listSchedules;
                 that.activites = response.activities;
-                that.lastScheduleReqDate = new Date();
+                that.lastReqDate = new Date();
 
-                return that.schedules;
+                return {"schedules": that.schedules, "activities": that.activites};
             }
 
             function getSchedulesFailed(error) {
@@ -148,9 +129,9 @@
             }
         };
         function isOldData() {
-            if (that.lastScheduleReqDate) {
+            if (that.lastReqDate) {
                 var currentDate = new Date();
-                var differenceInMs = currentDate.getTime() - that.lastScheduleReqDate.getTime();
+                var differenceInMs = currentDate.getTime() - that.lastReqDate.getTime();
                 return differenceInMs > SCHEDULES_UPDATE_INTERVAL_MS
             }
             return true;

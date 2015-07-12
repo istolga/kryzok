@@ -5,19 +5,25 @@
         .module('kryzok.calendar', ['kryzok.calendar.service'])
         .controller('ListCalendarController', ListCalendarController);
 
-    ListCalendarController.$inject = ['$state', '$scope', 'CalendarService'];
-    function ListCalendarController($state, $scope, CalendarService) {
+    ListCalendarController.$inject = ['$state', '$scope', 'CalendarService', '$cordovaSocialSharing'];
+    function ListCalendarController($state, $scope, CalendarService, $cordovaSocialSharing) {
         console.log("in list calendar controller");
 
         var vm = this;
         $scope.schedules = [];
+        $scope.activities = {};
         $scope.shouldShowDelete = true;
         $scope.listCanSwipe = true;
 
         vm.activate = function () {
-            CalendarService.getSchedules().then(function(returnedSchedules) {
+            CalendarService.getSchedules().then(function(response) {
                 console.log("in done function");
-                $scope.schedules = returnedSchedules;
+                if (response.schedules) {
+                    $scope.schedules = response.schedules;
+                }
+                if (response.activities) {
+                    $scope.activities = response.activities;
+                }
             });
         };
         $scope.viewItem = function(itemId, _scheduleDate, _fromTime, _toTime) {
@@ -29,8 +35,31 @@
                 toTime: _toTime
             });
         };
-        $scope.share = function () {
+        $scope.share = function(itemId) {
             console.log("in share");
+            var schedule = $scope.activities[itemId];
+
+            var message = "";
+            var subject = "";
+            var link = "";
+            if (schedule) {
+                message = "Check it out: " + schedule.title;
+                if (schedule.location) {
+                    message += " located at " + schedule.location.address + " " + schedule.location.city +
+                      " " + schedule.location.state_province;
+                }
+                subject = schedule.title;
+                if (schedule.website) {
+                    link = schedule.website;
+                }
+            }
+            $cordovaSocialSharing
+              .share(message, subject, null, link)
+              .then(function(result) {
+                  console.log("success in share");
+              }, function(err) {
+                  console.log("error in share");
+              });
         };
         $scope.edit = function () {
             console.log("in edit");
