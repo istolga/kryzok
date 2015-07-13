@@ -35,8 +35,9 @@
                 toTime: _toTime
             });
         };
-        $scope.share = function(itemId) {
+        $scope.share = function(itemId, _event) {
             console.log("in share");
+            _event.stopPropagation();
             var schedule = $scope.activities[itemId];
 
             var message = "";
@@ -66,6 +67,12 @@
         };
         $scope.delete = function () {
             console.log("in delete");
+        };
+        $scope.openYelp = function(_event) {
+            console.log("open yelp");
+            _event.stopPropagation();
+
+            window.open('yelp:');
         };
         $scope.search = function () {
         	$state.go('app.search', {

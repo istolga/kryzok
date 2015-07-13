@@ -26,6 +26,21 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+.calendar-page .icon-yelp-share {
+  background-image: url("assets/icons/custom/yelp_logo_40x20.png");
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 20px;
+  margin-left: 30px;
+  float: left;
+}
+.calendar-page .icon-utility-share {
+  float: left;
+  margin-left: 5px;
+}
+.calendar-page .schedule-options {
+  padding-top: 20px;
+}
 
 .talkbubble {
   padding-left: 10px;
